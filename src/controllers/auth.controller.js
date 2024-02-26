@@ -16,12 +16,9 @@ const { json } = require("express");
 /**
  * @description - This function is used for Mobile login/signup
  */
-const mobileLoginSignup = async (req, res, next) => {
+const CustomerSignup = async (req, res, next) => {
   try {
-    let { mobile,countrycode} = req.body;
-    var lname = 'harish'
-    var data1 = await distance({mobile,lname});
-    console.log('data',data1);
+    let {Fullname, mobile,countrycode} = req.body;  
     let newUser = await service.findOneForAwait(
       User,
       { mobile, isDeleted: false },
@@ -30,6 +27,7 @@ const mobileLoginSignup = async (req, res, next) => {
 
     if (!newUser) {
       let user = await new User({
+        name:Fullname,
         mobile: mobile,
         countrycode:countrycode,
         location: {
@@ -41,7 +39,7 @@ const mobileLoginSignup = async (req, res, next) => {
       const { otp, expiryTime } = await commonHelper.generateOtpData({
         userId: user._id,
       });
-      console.log('otp',otp);
+      // console.log('otp',otp);
       if (user.isBlocked) {
         throw new BadRequest(messages.error.blockUser);
       }  
@@ -54,26 +52,46 @@ const mobileLoginSignup = async (req, res, next) => {
       return new SuccessResponse(messages.success.otpSendmobile, {
         token,
         otp: otp,
-        user,
+        // user,
       }).send(res);
-    }else{
-      const { otp, expiryTime } = await commonHelper.generateOtpData({
-        userId: newUser._id,
-      });
-      console.log('otp',otp);
-      if (newUser.isBlocked) {
+    }else{      
+      return new SuccessResponse("Already Signup With this Number , Please Login", {       
+      }).send(res);
+    }   
+  } catch (error) {
+    throw new BadRequest(error.message);
+  }
+};
+/**
+ * @description - This function is used for Mobile login
+ */
+const CustomerLogin = async (req, res, next) => {
+  try {
+    let { mobile,countrycode} = req.body;  
+    let newUser = await service.findOneForAwait(
+      User,
+      { mobile, isDeleted: false },
+      { token: 0 }
+    );
+
+    if (newUser) {     
+      if (user.isBlocked) {
         throw new BadRequest(messages.error.blockUser);
       }  
       await service.findOneAndUpdateForAwait(User,{ mobile },{ loginOtp: otp, loginOtpExpiryTime: expiryTime });   
       const token = await commonHelper.generateToken({
         mobile: mobile,
         role: "user",
-        id: newUser._id,
+        id: user._id,
       });  
       return new SuccessResponse(messages.success.otpSendmobile, {
         token,
         otp: otp,
-        newUser,
+        // user,
+      }).send(res);
+    }else{
+      
+      return new SuccessResponse("No Account Found ,Please Signup ", {       
       }).send(res);
     }   
   } catch (error) {
@@ -853,7 +871,8 @@ const adminHelpCenter = async (req, res, next) => {
 module.exports = {
   createAccount,
   otpVerification,
-  mobileLoginSignup,
+  CustomerSignup,
+  CustomerLogin,
   otpVerificationmobile,
   resendOtpmobile,
   usercompleteAccount,

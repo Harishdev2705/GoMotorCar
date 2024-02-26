@@ -4,11 +4,11 @@ const swaggerDefination = {
     openapi: "3.0.0",
     info: {
         version: "1.0.0",
-        title: "Secret World",
-        description: "Secret World API versions v1.0.0",
+        title: "GO Motor Car",
+        description: "GO Motor Car API versions v1.0.0",
     },
     servers: [
-        { url: "http://18.218.117.223/secretWorld/", description: "Live server" },
+        { url: "http://3.104.74.103/", description: "Live server" },
         { url: "http://localhost:3000", description: "Local server" },
     ],
     components: {

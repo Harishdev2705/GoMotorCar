@@ -13,11 +13,51 @@ const { imageUpload } = require("../../middlewares/multerUploads");
 
 /**
  * @swagger
- * /v1/auth/mobileloginsignup:
+ * /v1/auth/CustomerSignup:
  *   post:
  *     tags:
  *       - User Auth
- *     summary: 'User Login Signup Api'
+ *     summary: 'Customer Signup Api'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               Fullname:
+ *                 type: string
+ *                 example: "Name"
+ *               mobile:
+ *                 type: number
+ *                 example: 1232123432
+ *               countrycode:
+ *                 type: string
+ *                 example: "+91"
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+router.post("/CustomerSignup", verifyMobileValidation, asyncHandler(authController.CustomerSignup));
+/** @description - Status route */
+/** @description - This route end point is for logging in */
+
+/**
+ * @swagger
+ * /v1/auth/CustomerLogin:
+ *   post:
+ *     tags:
+ *       - User Auth
+ *     summary: 'Customer Login Api'
  *     requestBody:
  *       required: true
  *       content:
@@ -44,9 +84,7 @@ const { imageUpload } = require("../../middlewares/multerUploads");
  *         description: Internal Server Error
  */
 
-router.post("/mobileloginsignup", verifyMobileValidation, asyncHandler(authController.mobileLoginSignup));
-/** @description - Status route */
-
+router.post("/CustomerLogin", verifyMobileValidation, asyncHandler(authController.CustomerLogin));
 
 /** * @description - This route end point is for verifying the mobile of user */
 
@@ -108,225 +146,225 @@ router.post("/otpVerificationmobile",userAuth, asyncHandler(authController.otpVe
  */
 
 router.post("/resendOtpmobile", userAuth, asyncHandler(authController.resendOtpmobile));
-/**
- * @swagger
- * /v1/auth/createAccount:
- *   post:
- *     tags:
- *       - User Auth
- *     summary: 'User and business user create Account'
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               usertype:
- *                 type: string
- *                 example: "user/business_user"
- *               fullname:
- *                 type: string
- *                 example: "John Doe"
- *               dob:
- *                 type: string
- *                 format: date
- *                 example: "2000-04-01"
- *               gender:
- *                 type: string
- *                 example: "male/female/other"
- *               profile_photo: 
- *                 type: string
- *                 format: binary
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
+// /**
+//  * @swagger
+//  * /v1/auth/createAccount:
+//  *   post:
+//  *     tags:
+//  *       - User Auth
+//  *     summary: 'User and business user create Account'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         multipart/form-data:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               usertype:
+//  *                 type: string
+//  *                 example: "user/business_user"
+//  *               fullname:
+//  *                 type: string
+//  *                 example: "John Doe"
+//  *               dob:
+//  *                 type: string
+//  *                 format: date
+//  *                 example: "2000-04-01"
+//  *               gender:
+//  *                 type: string
+//  *                 example: "male/female/other"
+//  *               profile_photo: 
+//  *                 type: string
+//  *                 format: binary
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
 
-router.post("/createAccount", userAuth , imageUpload.single("profile_photo"), asyncHandler(authController.createAccount));
+// router.post("/createAccount", userAuth , imageUpload.single("profile_photo"), asyncHandler(authController.createAccount));
 
-/** * @description - This route end point is for complete user account */
-/**
- * @swagger
- * /v1/auth/usercompleteAccount:
- *   post:
- *     tags:
- *       - User Auth
- *     summary: 'complete user account'
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               about:
- *                 type: string
- *                 example: 3435
- *               interests:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                      type: integer
- *                      example: 65b766093e3af208c7ef9329     
- *               specialization:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                      type: integer
- *                      example: 65b783b80517bd60e3c41b21    
- *               dietary:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                      type: integer
- *                      example: 65b751a7dc151e20c62805df  
- *               place:
- *                 type: string
- *                 example: 3435
- *               lat:
- *                 type: number
- *                 example: 3435
- *               long:
- *                 type: number
- *                 example: 3435
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
-router.post("/usercompleteAccount", userAuth, asyncHandler(authController.usercompleteAccount));
-/**
- * @swagger
- * /v1/auth/businessusercompleteAccount:
- *   post:
- *     tags:
- *       - User Auth
- *     summary: 'business user complete Account'
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               about:
- *                 type: string
- *                 example: "about"
- *               businessname:
- *                 type: string
- *                 example: "Business name"
- *               place:
- *                 type: string                
- *                 example: "mohali"
- *               lat:
- *                 type: number
- *                 example: 3435
- *               long:
- *                 type: number
- *                 example: 3435
- *               business_id: 
- *                 type: string
- *                 format: binary
- *               cover_photo: 
- *                 type: string
- *                 format: binary  
- *               services:
- *                 type: string
- *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'
- *               openinghours:
- *                 type: string
- *                 example: '[{"day": "monday", "starttime": "10:00", "endtime": "16:00","status":"1"},{"day": "tuesday", "starttime": "10:00", "endtime": "16:00","status":"1"}]'
- * 
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
+// /** * @description - This route end point is for complete user account */
+// /**
+//  * @swagger
+//  * /v1/auth/usercompleteAccount:
+//  *   post:
+//  *     tags:
+//  *       - User Auth
+//  *     summary: 'complete user account'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               about:
+//  *                 type: string
+//  *                 example: 3435
+//  *               interests:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     id:
+//  *                      type: integer
+//  *                      example: 65b766093e3af208c7ef9329     
+//  *               specialization:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     id:
+//  *                      type: integer
+//  *                      example: 65b783b80517bd60e3c41b21    
+//  *               dietary:
+//  *                 type: array
+//  *                 items:
+//  *                   type: object
+//  *                   properties:
+//  *                     id:
+//  *                      type: integer
+//  *                      example: 65b751a7dc151e20c62805df  
+//  *               place:
+//  *                 type: string
+//  *                 example: 3435
+//  *               lat:
+//  *                 type: number
+//  *                 example: 3435
+//  *               long:
+//  *                 type: number
+//  *                 example: 3435
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
+// router.post("/usercompleteAccount", userAuth, asyncHandler(authController.usercompleteAccount));
+// /**
+//  * @swagger
+//  * /v1/auth/businessusercompleteAccount:
+//  *   post:
+//  *     tags:
+//  *       - User Auth
+//  *     summary: 'business user complete Account'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         multipart/form-data:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               about:
+//  *                 type: string
+//  *                 example: "about"
+//  *               businessname:
+//  *                 type: string
+//  *                 example: "Business name"
+//  *               place:
+//  *                 type: string                
+//  *                 example: "mohali"
+//  *               lat:
+//  *                 type: number
+//  *                 example: 3435
+//  *               long:
+//  *                 type: number
+//  *                 example: 3435
+//  *               business_id: 
+//  *                 type: string
+//  *                 format: binary
+//  *               cover_photo: 
+//  *                 type: string
+//  *                 format: binary  
+//  *               services:
+//  *                 type: string
+//  *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'
+//  *               openinghours:
+//  *                 type: string
+//  *                 example: '[{"day": "monday", "starttime": "10:00", "endtime": "16:00","status":"1"},{"day": "tuesday", "starttime": "10:00", "endtime": "16:00","status":"1"}]'
+//  * 
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
 
-router.post("/businessusercompleteAccount", userAuth ,imageUpload.fields([
-    { name: 'business_id', maxCount: 1 },
-    { name: 'cover_photo', maxCount: 1 },
-  ]), asyncHandler(authController.b_usercompleteAccount));
-  /** * @description - This route end point is for complete user account */
-/**
- * @swagger
- * /v1/auth/VerificationRequest:
- *   post:
- *     tags:
- *       - User Auth
- *     summary: 'Verification Request sent'
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
-router.post("/VerificationRequest", userAuth, asyncHandler(authController.VerificationRequest));
-/**
- * @swagger
- * /v1/auth/VerificationStatus:
- *   get:
- *     tags:
- *       - User Auth
- *     summary: 'Verification Request sent'
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
-router.get("/VerificationStatus", userAuth, asyncHandler(authController.VerificationStatus));
+// router.post("/businessusercompleteAccount", userAuth ,imageUpload.fields([
+//     { name: 'business_id', maxCount: 1 },
+//     { name: 'cover_photo', maxCount: 1 },
+//   ]), asyncHandler(authController.b_usercompleteAccount));
+//   /** * @description - This route end point is for complete user account */
+// /**
+//  * @swagger
+//  * /v1/auth/VerificationRequest:
+//  *   post:
+//  *     tags:
+//  *       - User Auth
+//  *     summary: 'Verification Request sent'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
+// router.post("/VerificationRequest", userAuth, asyncHandler(authController.VerificationRequest));
+// /**
+//  * @swagger
+//  * /v1/auth/VerificationStatus:
+//  *   get:
+//  *     tags:
+//  *       - User Auth
+//  *     summary: 'Verification Request sent'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
+// router.get("/VerificationStatus", userAuth, asyncHandler(authController.VerificationStatus));
 
 // /** * @description - This route end point is for verifying the mobile of user */
 

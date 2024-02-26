@@ -54,6 +54,9 @@ const signupValidation = [
  * @description - This validation used for verify login otp
  */
 const verifyMobileValidation = [
+    body("Fullname", "Fullname is required.")
+    .exists()
+    .withMessage("Valid Fullname is required."),
     body("mobile", "mobile is required.")
         .exists()
         .withMessage("Valid Mobile is required."),

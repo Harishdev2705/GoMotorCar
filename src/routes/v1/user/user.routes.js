@@ -6,115 +6,115 @@ const asyncHandler = require('../../../helper/asyncHandler');
 const { updateProfileValidation, updateUnitAndNotificationValidation, addMonyToWalletValidation } = require("../../../validations/user.validations");
 const { imageUpload } = require("../../../middlewares/multerUploads");
 
-/**
- * @swagger
- * /v1/user/getProfile:
- *   get:
- *     tags:
- *       - User 
- *     summary: 'Get get Profile'
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
+// /**
+//  * @swagger
+//  * /v1/user/getProfile:
+//  *   get:
+//  *     tags:
+//  *       - User 
+//  *     summary: 'Get get Profile'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
 
-router.get("/getProfile", userAuth, asyncHandler(userController.getProfile));
-/**
- * @swagger
- * /v1/user/getUserProfile:
- *   get:
- *     tags:
- *       - User 
- *     summary: 'Get get user Profile'
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
+// router.get("/getProfile", userAuth, asyncHandler(userController.getProfile));
+// /**
+//  * @swagger
+//  * /v1/user/getUserProfile:
+//  *   get:
+//  *     tags:
+//  *       - User 
+//  *     summary: 'Get get user Profile'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
 
-router.get("/getUserProfile", userAuth, asyncHandler(userController.getUserProfile));
+// router.get("/getUserProfile", userAuth, asyncHandler(userController.getUserProfile));
 
-/**
- * @swagger
- * /v1/user/updateUserProfile:
- *   put:
- *     tags:
- *       - User
- *     summary: 'Update Profile'
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "name"
- *               about:
- *                 type: string
- *                 example: "about"
- *               dob:
- *                 type: string
- *                 example: "2024-12-01"
- *               gender:
- *                 type: string
- *                 example: "male/female"
- *               profile_photo: 
- *                 type: string
- *                 format: binary
- *               interests:
- *                 type: string
- *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'  
- *               deleteInterests:
- *                 type: string
- *                 example: '[{"interests_id": "122345455666777"},{"interests_id": "122345455666777"}]'
- *               specialization:
- *                 type: string
- *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'  
- *               deleteSpecialization:
- *                 type: string
- *                 example: '[{"specialization_id": "122345455666777"},{"specialization_id": "122345455666777"}]'
- *               dietary:
- *                 type: string
- *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'  
- *               deleteDietary:
- *                 type: string
- *                 example: '[{"dietary_id": "122345455666777"},{"dietary_id": "122345455666777"}]'
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
-router.put("/updateUserProfile", userAuth, imageUpload.single("profileImage"), asyncHandler(userController.updateUserProfile));
+// /**
+//  * @swagger
+//  * /v1/user/updateUserProfile:
+//  *   put:
+//  *     tags:
+//  *       - User
+//  *     summary: 'Update Profile'
+//  *     security:
+//  *       - bearerAuth: []
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         multipart/form-data:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               name:
+//  *                 type: string
+//  *                 example: "name"
+//  *               about:
+//  *                 type: string
+//  *                 example: "about"
+//  *               dob:
+//  *                 type: string
+//  *                 example: "2024-12-01"
+//  *               gender:
+//  *                 type: string
+//  *                 example: "male/female"
+//  *               profile_photo: 
+//  *                 type: string
+//  *                 format: binary
+//  *               interests:
+//  *                 type: string
+//  *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'  
+//  *               deleteInterests:
+//  *                 type: string
+//  *                 example: '[{"interests_id": "122345455666777"},{"interests_id": "122345455666777"}]'
+//  *               specialization:
+//  *                 type: string
+//  *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'  
+//  *               deleteSpecialization:
+//  *                 type: string
+//  *                 example: '[{"specialization_id": "122345455666777"},{"specialization_id": "122345455666777"}]'
+//  *               dietary:
+//  *                 type: string
+//  *                 example: '[{"id": "122345455666777"},{"id": "122345455666777"}]'  
+//  *               deleteDietary:
+//  *                 type: string
+//  *                 example: '[{"dietary_id": "122345455666777"},{"dietary_id": "122345455666777"}]'
+//  *     responses:
+//  *       '200':
+//  *         description: OK
+//  *       '400':
+//  *         description: Bad Request
+//  *       '401':
+//  *         description: Authorization Failure
+//  *       '422':
+//  *         description: Validation Error
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
+// router.put("/updateUserProfile", userAuth, imageUpload.single("profileImage"), asyncHandler(userController.updateUserProfile));
 
 // /**
 //  * @swagger
