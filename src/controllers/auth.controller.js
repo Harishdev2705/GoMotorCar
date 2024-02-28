@@ -75,14 +75,17 @@ const CustomerLogin = async (req, res, next) => {
     );
 
     if (newUser) {     
-      if (user.isBlocked) {
+      if (newUser.isBlocked) {
         throw new BadRequest(messages.error.blockUser);
       }  
+      const { otp, expiryTime } = await commonHelper.generateOtpData({
+        userId: newUser._id,
+      });
       await service.findOneAndUpdateForAwait(User,{ mobile },{ loginOtp: otp, loginOtpExpiryTime: expiryTime });   
       const token = await commonHelper.generateToken({
         mobile: mobile,
         role: "user",
-        id: user._id,
+        id: newUser._id,
       });  
       return new SuccessResponse(messages.success.otpSendmobile, {
         token,

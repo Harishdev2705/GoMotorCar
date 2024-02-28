@@ -84,7 +84,7 @@ router.post("/CustomerSignup", verifyMobileValidation, asyncHandler(authControll
  *         description: Internal Server Error
  */
 
-router.post("/CustomerLogin", verifyMobileValidation, asyncHandler(authController.CustomerLogin));
+router.post("/CustomerLogin",  asyncHandler(authController.CustomerLogin));
 
 /** * @description - This route end point is for verifying the mobile of user */
 

@@ -1,11 +1,17 @@
 const AWS = require('aws-sdk');
 
+// AWS.config.update({
+//   accessKeyId: 'AKIAZETRMJ7Q32COLSBZ',
+//   secretAccessKey: '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',
+//   region: 'us-east-2'
+// });
 AWS.config.update({
-  accessKeyId: 'AKIAZETRMJ7Q32COLSBZ',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIASGRVSXQVGDEXKNXB',
+  secretAccessKey: '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',
   region: 'us-east-2'
 });
-
+// AKIASGRVSXQVGDEXKNXB
+// rEZ+L79C8EvmSdKBIkzch+QrDCGE71fw0uWheXs/
 // Create an instance of the S3 service
 const s3 = new AWS.S3();
 
@@ -13,8 +19,8 @@ const s3 = new AWS.S3();
 exports.uploadToS3 = (objectKey, filePath) => {
   console.log('objectKey',objectKey);
   const params = {
-    Bucket: 'secretworld', // Replace with your bucket name
-    Key: 'userprofile/' +objectKey,
+    Bucket: 'harish-mybucket', // Replace with your bucket name
+    Key: objectKey,
     Body: require('fs').createReadStream(filePath)
   };
 

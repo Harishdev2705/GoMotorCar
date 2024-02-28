@@ -5,6 +5,7 @@ const authRoutes = require("./auth.routes.js")
 
 const adminUserRoutes = require("./admin/user.routes.js")
 const adminAuthRoutes = require("./admin/auth.routes.js")
+const admincarRoutes = require("./admin/car.routes.js")
 const adminPolicyRoutes = require("./admin/policy.routes.js")
 const adminHelpRoutes = require("./admin/help.routes.js")
 
@@ -25,6 +26,11 @@ const routes = [
         method: "use",
         url: "/admin/auth",
         handler: adminAuthRoutes,
+    },
+    {
+        method: "use",
+        url: "/admin/car",
+        handler: admincarRoutes,
     },
     {
         method: "use",
