@@ -146,6 +146,79 @@ router.post("/otpVerificationmobile",userAuth, asyncHandler(authController.otpVe
  */
 
 router.post("/resendOtpmobile", userAuth, asyncHandler(authController.resendOtpmobile));
+
+/**
+ * @swagger
+ * /v1/auth/Updatecustomercar:
+ *   put:
+ *     tags:
+ *       - User Auth
+ *     summary: 'Update customer car'
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               carID:
+ *                 type: string
+ *                 example: 64d33a6a072593e65c844d13
+ *               FuelTypeID:
+ *                 type: string
+ *                 example: "64d33a6a072593e65c844d13"
+ *               RegistrationNo:
+ *                 type: string
+ *                 example: "xyz"
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+router.put("/Updatecustomercar",userAuth, asyncHandler(authController.Updatecustomercar));
+/**
+ * @swagger
+ * /v1/auth/Deletecustomercar:
+ *   delete:
+ *     tags:
+ *       -  User Auth
+ *     summary: 'delete customer car'
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               carID:
+ *                 type: string
+ *                 example: 64d33a6a072593e65c844d13
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+router.delete("/Deletecustomercar", userAuth, asyncHandler(authController.Deletecustomercar));
 // /**
 //  * @swagger
 //  * /v1/auth/createAccount:

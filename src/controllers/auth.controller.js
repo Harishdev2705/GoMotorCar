@@ -152,6 +152,35 @@ const customerAddcar = async (req, res, next) => {
   }
 };
 /**
+ * @description - This function is used for Updatecustomercar 
+ */
+const Updatecustomercar = async (req, res, next) => {  
+  try {
+    let {carID,RegistrationNo,FuelTypeID} = req.body;
+    console.log(req.body);
+    const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
+    await service.findOneAndUpdateForAwait(Customercars,{ _id:carID},{ FuelTypeID:FuelTypeID ,RegistrationNo:RegistrationNo}); 
+    const car = await Customercars.findOne({ _id:carID});    
+    return new SuccessResponse("Car Update Sucessfully", { car     
+    }).send(res);
+  } catch (error) {
+    throw new BadRequest(error.message);
+  }
+};
+/**
+ * @description - This function is used for Deletecustomercar
+ */
+const Deletecustomercar = async (req, res, next) => {  
+  try {
+    let {carID} = req.body;
+    const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
+    await service.findOneAndUpdateForAwait(Customercars,{ _id:carID},{isDeleted:true}); 
+    return new SuccessResponse("Car Deleted Sucessfully").send(res);
+  } catch (error) {
+    throw new BadRequest(error.message);
+  }
+};
+/**
  * @description - This function is used for complete account
  */
 const usercompleteAccount = async (req, res, next) => {
@@ -875,4 +904,6 @@ module.exports = {
   otpVerificationmobile,
   resendOtpmobile,
   customerAddcar,
+  Updatecustomercar,
+  Deletecustomercar,
 };
