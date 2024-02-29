@@ -68,6 +68,7 @@ const userSchema = new Schema({
     // customerID: { type: String, default: null },
     mobile: { type: Number, maxlength: 15, default: null },
     usertype: { type: String,default:null},
+    customerSno: { type: String,default:null},
     // salonMobile: { type: String, maxlength: 15, default: null },
     // salonMobileStatus: { type:Boolean, default: false },
     // personalMobileStatus: { type:Boolean, default: false },

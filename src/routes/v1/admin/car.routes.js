@@ -50,7 +50,7 @@ router.post("/Addcar", imageUpload.single("carImage"), asyncHandler(AdminCarCont
 /**
  * @swagger
  * /v1/admin/car/cars:
- *   post:
+ *   get:
  *     tags:
  *       - Admin Auth
  *     summary: 'Get Cars'   
@@ -82,7 +82,7 @@ router.get("/cars", asyncHandler(AdminCarController.cars));
  *           schema:
  *             type: object
  *             properties:
- *               carId:
+ *               carID:
  *                 type: integer
  *                 example: 65b783b80517bd60e3c41b21
  *               name:
@@ -108,20 +108,16 @@ router.post("/AddcarModel", imageUpload.single("carImage"), asyncHandler(AdminCa
 /**
  * @swagger
  * /v1/admin/car/carsModel:
- *   post:
+ *   get:
  *     tags:
  *       - Admin Auth
- *     summary: 'Get carsModel'   
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               carId:
- *                 type: integer
- *                 example: 65b783b80517bd60e3c41b21
+ *     summary: 'Get car model'
+ *     parameters:
+ *       - name: carID
+ *         in: query
+ *         required: false
+ *         description: for get data
+ *         type: number
  *     responses:
  *       '200':
  *         description: OK
@@ -135,7 +131,7 @@ router.post("/AddcarModel", imageUpload.single("carImage"), asyncHandler(AdminCa
  *         description: Internal Server Error
  */
 
-router.get("/carsModel", asyncHandler(AdminCarController.carsModel));
+router.get("/carsModel",  asyncHandler(AdminCarController.carsModel));
 
 /**
  * @swagger
@@ -202,13 +198,11 @@ router.get("/Fueltype",asyncHandler(AdminCarController.Fueltype));
  *   post:
  *     tags:
  *       - Admin Auth
- *     summary: 'Add transmission Type '
- *     security:
- *       - bearerAuth: []
+ *     summary: 'Admin Login Api'
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:

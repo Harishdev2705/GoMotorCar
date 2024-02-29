@@ -2,7 +2,7 @@ const service = require("../services/mongodb.services");
 const { SuccessResponse ,AuthFailureResponse} = require("../utility/apiResponse");
 const { BadRequest } = require("../utility/apiError");
 const commonHelper = require("../helper/common");
-const { User, AdminHelp,UserFunctions ,UserFunctions_list,Functions,Openinghours,Services,UseraddServices,VerificationRequests} = require("../models/index");
+const { User,Customercars, AdminHelp,VerificationRequests} = require("../models/index");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongoose").Types;
 const { env, jwtSecret } = require("../utility/config");
@@ -24,12 +24,14 @@ const CustomerSignup = async (req, res, next) => {
       { mobile, isDeleted: false },
       { token: 0 }
     );
-
+    let Usercount = await User.find({usertype:"customer",});
     if (!newUser) {
       let user = await new User({
         name:Fullname,
         mobile: mobile,
         countrycode:countrycode,
+        usertype:"customer",
+        customerSno:'C'+ Number(Usercount.length+1),
         location: {
           type: "Point",
           coordinates: [0, 0],
@@ -128,27 +130,22 @@ const resendOtpmobile = async (req, res, next) => {
 /**
  * @description - This function is used for create account
  */
-const createAccount = async (req, res, next) => {  
+const customerAddcar = async (req, res, next) => {  
   try {
-    let {usertype, fullname, dob, gender } = req.body;
-    if(usertype == undefined || fullname == undefined || dob == undefined || gender == undefined){
-      return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
-    }
-    let profile_photo = req.file;   
-    if(profile_photo == undefined){
-      return new SuccessResponse("Please choose image").send(res);
-    }
-    const users = await User.findOne({ _id: req.user._id });
-    var userphone = users.mobile;
-    const imageUrl = await uploadToS3(profile_photo.filename, profile_photo.path);
-    if(usertype == "user"){      
-        var updateuser = await service.findOneAndUpdateForAwait(User,{ _id:req.user._id },{ name: fullname, usertype:"user" ,dob:dob,gender: gender,profile_photo:imageUrl,profile_status:2});     
-    }else{  
-      var updateuser = await service.findOneAndUpdateForAwait(User,{ _id:req.user._id },{ name: fullname, usertype:"b_user" ,dob:dob,gender: gender,profile_photo:imageUrl,profile_status:2});       
-    }
-    const usersdata = await User.findOne({ _id: req.user._id });
-    return new SuccessResponse(messages.success.updateUser, {
-      user: usersdata
+    let {RegistrationNo, RegistrationType, BrandID,ModelID,FuelTypeID,TransmissionTypeID,CarCategory } = req.body;
+    const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
+    let userfunctio = await new Customercars({
+      CID: req.user._id,
+      RegistrationNo,
+      RegistrationType,
+      BrandID,
+      ModelID,
+      FuelTypeID,
+      TransmissionTypeID,
+      CarCategory
+    });  
+    await service.createForAwait(userfunctio);
+    return new SuccessResponse("Car Sucessfully Added", { userfunctio     
     }).send(res);
   } catch (error) {
     throw new BadRequest(error.message);
@@ -871,22 +868,11 @@ const adminHelpCenter = async (req, res, next) => {
 };
 
 
-module.exports = {
-  createAccount,
+module.exports = {  
   otpVerification,
   CustomerSignup,
   CustomerLogin,
   otpVerificationmobile,
   resendOtpmobile,
-  usercompleteAccount,
-  b_usercompleteAccount,
-  VerificationRequest,
-  VerificationStatus,
-  emailLogin,
-  socialLogin,
-  resendOtp,
-  forgotPassword,
-  setNewPassword,
-  updateRole,
-  adminHelpCenter
+  customerAddcar,
 };

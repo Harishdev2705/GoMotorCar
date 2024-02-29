@@ -83,7 +83,8 @@ const AddcarModel = async (req, res, next) => {
 };
 const carsModel = async (req, res, next) => {
   try {
-    let {carID} = req.body;
+    let {carID} = req.query;
+    console.log('req.body q',req.query);
     if(carID== undefined ){
       return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
     }
@@ -143,7 +144,6 @@ const AddtransmissionType = async (req, res, next) => {
     if(name == undefined ){
       return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
     }   
-    console.log('imageUrl',imageUrl);
     let newUser = await new Transmission({
       name,
     });

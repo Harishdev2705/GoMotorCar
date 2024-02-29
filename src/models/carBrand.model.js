@@ -12,5 +12,5 @@ const requestsSchema = new Schema({
         timestamps: true,
     })
   
-const car = mongoose.model('car', requestsSchema)
+const car = mongoose.model('carBrand', requestsSchema)
 module.exports = car

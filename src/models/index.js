@@ -11,10 +11,11 @@ const Buservices = require('./BuserServices.model')
 const UserSubcategories = require('./userSubcategories.model')
 const Policy = require('./policy.model')
 const Help = require('./helpCenter.model')
-const caradd = require('./car.model')
+const caradd = require('./carBrand.model')
 const carModel = require('./carModel.model')
 const FuelType = require('./FuelType.model')
 const Transmission = require('./transmission.model')
+const Customercars = require('./customerCars.model')
 
 
 // const Product = require('./product.model')
@@ -69,6 +70,7 @@ module.exports = {
     carModel,
     FuelType,
     Transmission,
+    Customercars
     // Product,
     // Category,
     // SubCategory,

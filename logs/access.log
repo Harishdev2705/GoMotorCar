@@ -25,3 +25,6 @@
 ::1 - - [26/Feb/2024:04:56:29 +0000] "GET /secretWorld/admin/api-docs HTTP/1.1" 404 67 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
 ::1 - - [27/Feb/2024:09:53:27 +0000] "POST /v1/admin/auth/Addcar HTTP/1.1" 404 67 "http://localhost:3000/admin/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
 ::1 - - [27/Feb/2024:09:55:19 +0000] "POST /v1/admin/auth/Addcar HTTP/1.1" 404 67 "http://localhost:3000/admin/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+::1 - - [29/Feb/2024:03:34:30 +0000] "POST /v1/admin/car/cars HTTP/1.1" 404 67 "http://localhost:3000/admin/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+::1 - - [29/Feb/2024:03:36:00 +0000] "POST /v1/admin/car/cars HTTP/1.1" 404 67 "http://localhost:3000/admin/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+::1 - - [29/Feb/2024:03:36:54 +0000] "POST /v1/admin/car/cars HTTP/1.1" 404 67 "http://localhost:3000/admin/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
