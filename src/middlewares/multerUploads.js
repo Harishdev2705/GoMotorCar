@@ -22,7 +22,7 @@ const imagesUpload = multer({
         fileSize: 1024 * 1024 * 50,
     },
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|JPG|jpeg|gif|GIF|JPEG|png|PNG|webp|WEBP)$/)) {
+        if (!file.originalname.match(/\.(jpg|JPG|jpeg|gif|GIF|JPEG|png|PNG|webp|WEBP|jfif)$/)) {
             return cb(new multer.MulterError("You can only upload images"));
         }
         cb(null, true);
@@ -77,7 +77,7 @@ const imageUpload = multer({
         fileSize: 1024 * 1024 * 50,
     },
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|JPG|jpeg|gif|GIF|JPEG|png|PNG|webp|WEBP|mp4|MP4|mov|MOV|avi|AVI|wmv|WMV|MKV|mkv|webm|WEBM)$/)) {
+        if (!file.originalname.match(/\.(jpg|JPG|jpeg|gif|GIF|JPEG|png|PNG|webp|WEBP|mp4|MP4|mov|MOV|avi|AVI|wmv|WMV|MKV|mkv|webm|WEBM|jfif)$/)) {
             console.log("inside the errror invalid format", file);
             return cb(new multer.MulterError("You can only upload image and video"));
         }

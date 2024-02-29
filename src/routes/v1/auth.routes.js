@@ -5,7 +5,7 @@ const userController = require("../../controllers/user/user.controller");
 const { userAuth } = require("../../middlewares/userAuth.middleware");
 const {
     signupValidation, socialLoginValidation, resendOtpValidation, setNewPasswordValidation,
-    forgetPasswordValidation, LoginValidation ,verifyMobileValidation,createaccountValidation
+    forgetPasswordValidation, LoginValidation, verifyMobileValidation, createaccountValidation
 } = require("../../validations/auth.validations");
 const asyncHandler = require('../../helper/asyncHandler');
 const { imageUpload } = require("../../middlewares/multerUploads");
@@ -84,7 +84,7 @@ router.post("/CustomerSignup", verifyMobileValidation, asyncHandler(authControll
  *         description: Internal Server Error
  */
 
-router.post("/CustomerLogin",  asyncHandler(authController.CustomerLogin));
+router.post("/CustomerLogin", asyncHandler(authController.CustomerLogin));
 
 /** * @description - This route end point is for verifying the mobile of user */
 
@@ -120,7 +120,7 @@ router.post("/CustomerLogin",  asyncHandler(authController.CustomerLogin));
  *         description: Internal Server Error
  */
 
-router.post("/otpVerificationmobile",userAuth, asyncHandler(authController.otpVerificationmobile));
+router.post("/otpVerificationmobile", userAuth, asyncHandler(authController.otpVerificationmobile));
 
 
 /**
@@ -146,79 +146,6 @@ router.post("/otpVerificationmobile",userAuth, asyncHandler(authController.otpVe
  */
 
 router.post("/resendOtpmobile", userAuth, asyncHandler(authController.resendOtpmobile));
-
-/**
- * @swagger
- * /v1/auth/Updatecustomercar:
- *   put:
- *     tags:
- *       - User Auth
- *     summary: 'Update customer car'
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               carID:
- *                 type: string
- *                 example: 64d33a6a072593e65c844d13
- *               FuelTypeID:
- *                 type: string
- *                 example: "64d33a6a072593e65c844d13"
- *               RegistrationNo:
- *                 type: string
- *                 example: "xyz"
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
-
-router.put("/Updatecustomercar",userAuth, asyncHandler(authController.Updatecustomercar));
-/**
- * @swagger
- * /v1/auth/Deletecustomercar:
- *   delete:
- *     tags:
- *       -  User Auth
- *     summary: 'delete customer car'
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               carID:
- *                 type: string
- *                 example: 64d33a6a072593e65c844d13
- *     responses:
- *       '200':
- *         description: OK
- *       '400':
- *         description: Bad Request
- *       '401':
- *         description: Authorization Failure
- *       '422':
- *         description: Validation Error
- *       '500':
- *         description: Internal Server Error
- */
-
-router.delete("/Deletecustomercar", userAuth, asyncHandler(authController.Deletecustomercar));
 // /**
 //  * @swagger
 //  * /v1/auth/createAccount:
@@ -770,6 +697,146 @@ router.delete("/Deletecustomercar", userAuth, asyncHandler(authController.Delete
 //  */
 
 // router.post("/adminHelpCenter", asyncHandler(authController.adminHelpCenter));
+
+/** @description - Status route */
+/** @description - This route end point is for logging in */
+
+/**
+ * @swagger
+ * /v1/auth/customerAddcar:
+ *   post:
+ *     tags:
+ *       - User Auth
+ *     summary: 'Add new car'
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               RegistrationNo:
+ *                 type: string
+ *                 example: "12345678 "
+ *               RegistrationType:
+ *                 type: string
+ *                 example: personal/commerial
+ *               BrandID:
+ *                 type: string
+ *                 example: 65df5f0cdf52f6bfd3932c57
+ *               ModelID:
+ *                 type: string
+ *                 example: "65df5f0cdf52f6bfd3932c57"
+ *               FuelTypeID:
+ *                 type: string
+ *                 example: "65df5f0cdf52f6bfd3932c57"
+ *               TransmissionTypeID:
+ *                 type: string
+ *                 example: "65df5f0cdf52f6bfd3932c57"
+ *               CarCategory:
+ *                 type: string
+ *                 example: "abc"
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+router.post("/CustomerAddCar", userAuth, asyncHandler(authController.customerAddcar));
+
+/** @description - Status route */
+/** @description - This route end point is for logging in */
+
+/**
+ * @swagger
+ * /v1/auth/CustomerAppartment:
+ *   post:
+ *     tags:
+ *       - User Auth
+ *     summary: 'Add new Appartment'
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               carID:
+ *                 type: string
+ *                 example: 65e03d86326a1854ca74a609
+ *               appartment_no:
+ *                 type: number
+ *                 example: 12
+ *               flat_no:
+ *                 type: number
+ *                 example: 34
+ *               garage_no:
+ *                 type: number
+ *                 example: 3
+ *               wing_no:
+ *                 type: string
+ *                 example: "A"
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+router.post("/CustomerAppartment", asyncHandler(authController.addCustomerAppartment));
+
+
+/** @description - Status route */
+/** @description - This route end point is for logging in */
+
+/**
+ * @swagger
+ * /v1/auth/getCarDetails:
+ *   post:
+ *     tags:
+ *       - User Auth
+ *     summary: 'get car details'
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               carID:
+ *                 type: string
+ *                 example: 65e03d86326a1854ca74a609
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+router.post("/getCarDetails", asyncHandler(authController.getCarDetails));
+
 
 
 module.exports = router;

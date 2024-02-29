@@ -24,7 +24,8 @@ const CustomerSignup = async (req, res, next) => {
       { mobile, isDeleted: false },
       { token: 0 }
     );
-    let Usercount = await User.find({usertype:"customer",});
+    let Usercount = await User
+    r.find({usertype:"customer",});
     if (!newUser) {
       let user = await new User({
         name:Fullname,
@@ -133,7 +134,9 @@ const resendOtpmobile = async (req, res, next) => {
 const customerAddcar = async (req, res, next) => {  
   try {
     let {RegistrationNo, RegistrationType, BrandID,ModelID,FuelTypeID,TransmissionTypeID,CarCategory } = req.body;
+    console.log('user00----',req.user)
     const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
+
     let userfunctio = await new Customercars({
       CID: req.user._id,
       RegistrationNo,
@@ -152,34 +155,61 @@ const customerAddcar = async (req, res, next) => {
   }
 };
 /**
- * @description - This function is used for Updatecustomercar 
+ * @description - This function is used for add customer apartment
  */
-const Updatecustomercar = async (req, res, next) => {  
-  try {
-    let {carID,RegistrationNo,FuelTypeID} = req.body;
-    console.log(req.body);
-    const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
-    await service.findOneAndUpdateForAwait(Customercars,{ _id:carID},{ FuelTypeID:FuelTypeID ,RegistrationNo:RegistrationNo}); 
-    const car = await Customercars.findOne({ _id:carID});    
-    return new SuccessResponse("Car Update Sucessfully", { car     
-    }).send(res);
-  } catch (error) {
+const addCustomerAppartment = async (req,res,next) =>{
+  try{                                                            
+   // const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
+   let {carID, appartment_no, flat_no,garage_no,wing_no } = req.body;
+    let userappartment = await  Customercars.findOneAndUpdate({_id:carID},{appartment_no:appartment_no,
+      flat_no:flat_no,
+      garage_no:garage_no,
+      wing_no:wing_no})
+    //await service.createForAwait(userappartment);
+    return new SuccessResponse("Appartment Details Sucessfully Added").send(res);
+  }catch{
     throw new BadRequest(error.message);
   }
-};
+}
+
 /**
- * @description - This function is used for Deletecustomercar
+ * @description - This fun ction is used for add customer apartment
  */
-const Deletecustomercar = async (req, res, next) => {  
-  try {
-    let {carID} = req.body;
-    const user = await User.findOne({ _id: req.user._id ,isDeleted:false});
-    await service.findOneAndUpdateForAwait(Customercars,{ _id:carID},{isDeleted:true}); 
-    return new SuccessResponse("Car Deleted Sucessfully").send(res);
-  } catch (error) {
-    throw new BadRequest(error.message);
+const getCarDetails= async (req,res,next)=>{
+  try{
+//let carID = req.body.carID;
+const result = await Customercars.aggregate([
+  {
+    $match: {
+      BrandID: new ObjectId(req.body.carID)
+    }
+  },
+  {
+    $lookup: {
+      from: 'carmodels',
+      localField: 'BrandID',
+      foreignField: 'carID',
+      as: 'carModel'
+    }
+  },
+  {
+    $lookup: {
+      from: 'carbrands',
+      localField: 'BrandID',
+      foreignField: '_id',
+      as: 'carBrand'
+    }
+  },
+ 
+]); 
+console.log('result-',result)
+return new SuccessResponse("Car Details FOund Successfully",{result}).send(res);
+
+  }catch{
+    throw new BadRequest(error.message)
   }
-};
+}
+
 /**
  * @description - This function is used for complete account
  */
@@ -904,6 +934,6 @@ module.exports = {
   otpVerificationmobile,
   resendOtpmobile,
   customerAddcar,
-  Updatecustomercar,
-  Deletecustomercar,
+  addCustomerAppartment,
+  getCarDetails
 };

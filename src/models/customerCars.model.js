@@ -13,6 +13,10 @@ const requestsSchema = new Schema({
     CarCategory: { type: String,default:null},
     status: { type:Number, default: 1 },// 1 means active   
     isDeleted: { type: Boolean, default: false },
+    appartment_no:{type:Number,default:null},
+    flat_no:{type:Number,default:null},
+    garage_no:{type:Number,default:null},
+    wing_no:{type:String,default:null}
 },
     {
         timestamps: true,
