@@ -699,4 +699,4 @@ router.post("/resendOtpmobile", userAuth, asyncHandler(authController.resendOtpm
 // router.post("/adminHelpCenter", asyncHandler(authController.adminHelpCenter));
 
 
-module.exports = router;
+module.exports = router;  

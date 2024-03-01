@@ -6609,3 +6609,10 @@
 {"level":"info","message":"App listening on undefined:3000"}
 {"level":"error","message":"MongoDB connection error: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017"}
 {"level":"error","message":"MongoDB connection error: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"info","message":"App listening on undefined:3000"}
+{"level":"error","message":"MongoDB connection error: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"error","message":"MongoDB connection error: MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017"}
+{"level":"info","message":"App listening on undefined:3000"}
+{"level":"info","message":"info"}
+{"level":"info","message":"App listening on undefined:3000"}
+{"level":"info","message":"info"}
