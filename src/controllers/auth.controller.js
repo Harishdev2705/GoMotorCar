@@ -24,8 +24,7 @@ const CustomerSignup = async (req, res, next) => {
       { mobile, isDeleted: false },
       { token: 0 }
     );
-    let Usercount = await User
-    r.find({usertype:"customer",});
+    let Usercount = await User.find({usertype:"customer",});
     if (!newUser) {
       let user = await new User({
         name:Fullname,
