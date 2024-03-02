@@ -8,7 +8,7 @@ const swaggerDefination = {
         description: "GO Motor Car API versions v1.0.0",
     },
     servers: [
-        { url: "http://3.104.74.103/", description: "Live server" },
+        { url: "http://3.106.253.55/", description: "Live server" },
         { url: "http://localhost:3000", description: "Local server" },
     ],
     components: {
