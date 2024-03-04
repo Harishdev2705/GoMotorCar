@@ -135,6 +135,58 @@ router.get("/carsModel",  asyncHandler(AdminCarController.carsModel));
 
 /**
  * @swagger
+ * /v1/admin/car/AddCarCategory:
+ *   post:
+ *     tags:
+ *       - Admin Auth
+ *     summary: 'Admin car Category Api'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Sedan/SUV"   
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+router.post("/AddCarCategory", asyncHandler(AdminCarController.AddCarCategory));
+/**
+ * @swagger
+ * /v1/admin/car/CarCategories:
+ *   get:
+ *     tags:
+ *       - Admin Auth
+ *     summary: 'Get Car Categories'   
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+router.get("/CarCategories",asyncHandler(AdminCarController.CarCategories));
+/**
+ * @swagger
  * /v1/admin/car/AddFuelType:
  *   post:
  *     tags:

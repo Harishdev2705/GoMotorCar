@@ -215,10 +215,6 @@ const LoginValidation = [
     body("password", "password is required.")
         .exists()
         .withMessage("password is required."),
-    body("fcmToken", "fcmToken is required.")
-        .exists()
-        .withMessage("fcmToken is required."),
-
     async (req, res, next) => {
         try {
             const errors = validationResult(req);

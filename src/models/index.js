@@ -16,8 +16,7 @@ const carModel = require('./carModel.model')
 const FuelType = require('./FuelType.model')
 const Transmission = require('./transmission.model')
 const Customercars = require('./customerCars.model')
-
-
+const CarCategory = require('./carCategory.model')
 // const Product = require('./product.model')
 // const Category = require('./category.model')
 // const SubCategory = require('./subCategory.model')
@@ -70,7 +69,8 @@ module.exports = {
     carModel,
     FuelType,
     Transmission,
-    Customercars
+    Customercars,
+    CarCategory
     // Product,
     // Category,
     // SubCategory,

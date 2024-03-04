@@ -2,7 +2,7 @@ const service = require("../../services/mongodb.services");
 const { SuccessResponse } = require("../../utility/apiResponse");
 const { BadRequest } = require("../../utility/apiError");
 const commonHelper = require("../../helper/common");
-const { User,caradd,carModel,FuelType,Transmission } = require("../../models/index");
+const { User,caradd,carModel,FuelType,Transmission,CarCategory } = require("../../models/index");
 const messages = require("../../utility/message");
 const fs = require("fs");
 const path = require("path");
@@ -127,6 +127,35 @@ const AddFuelType = async (req, res, next) => {
   }
 };
 /**
+ * @description - This function is used for add car
+ */
+const AddCarCategory = async (req, res, next) => {
+  try {
+    let {name} = req.body;
+    if(name == undefined ){
+      return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
+    }
+    let newUser = await new CarCategory({
+      name,
+    });
+
+    await service.createForAwait(newUser);
+   
+    return new SuccessResponse("Created Sucessfully").send(res);
+  } catch (error) {
+    throw new BadRequest(error.message);
+  }
+};
+const CarCategories = async (req, res, next) => {
+  try {
+    const cars = await CarCategory.find({isDeleted:false}); 
+   
+    return new SuccessResponse("Sucessfully Get",{cars}).send(res);
+  } catch (error) {
+    throw new BadRequest(error.message);
+  }
+};
+/**
  * @description - This function is used for get car
  */
 const Fueltype = async (req, res, next) => {
@@ -173,5 +202,6 @@ module.exports = {
   Fueltype,
   AddtransmissionType,
   transmissionType,
-
+  AddCarCategory,
+  CarCategories
 };

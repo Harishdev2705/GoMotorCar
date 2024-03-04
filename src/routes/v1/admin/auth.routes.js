@@ -9,86 +9,80 @@ const { adminAuth } = require("../../../middlewares/userAuth.middleware");
 const { imageUpload } = require("../../../middlewares/multerUploads");
 
 
-// /**
-//  * @swagger
-//  * /v1/admin/auth/signUp:
-//  *   post:
-//  *     tags:
-//  *       - Admin Auth
-//  *     summary: 'Admin signUp'
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             properties:
-//  *               name:
-//  *                 type: string
-//  *                 example: "secret world"
-//  *               email:
-//  *                 type: string
-//  *                 example: admin@gmail.com
-//  *               password:
-//  *                 type: string
-//  *                 example: 12345
-//  *               fcmToken:
-//  *                 type: string
-//  *                 example: for ios,android and web
-//  *     responses:
-//  *       '200':
-//  *         description: OK
-//  *       '400':
-//  *         description: Bad Request
-//  *       '401':
-//  *         description: Authorization Failure
-//  *       '422':
-//  *         description: Validation Error
-//  *       '500':
-//  *         description: Internal Server Error
-//  */
+/**
+ * @swagger
+ * /v1/admin/auth/signUp:
+ *   post:
+ *     tags:
+ *       - Admin Auth
+ *     summary: 'Admin signUp'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Go Motor Car"
+ *               email:
+ *                 type: string
+ *                 example: admin@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: 123456
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
 
-// router.post("/signup", asyncHandler(AdminAuthController.signup));
+router.post("/signup", asyncHandler(AdminAuthController.signup));
 
-// /** @description - This route end point is for logging in */
+/** @description - This route end point is for logging in */
 
-// /**
-//  * @swagger
-//  * /v1/admin/auth/login:
-//  *   post:
-//  *     tags:
-//  *       - Admin Auth
-//  *     summary: 'Admin Login Api'
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             properties:
-//  *               email:
-//  *                 type: string
-//  *                 example: secretworldadmin@yopmail.com
-//  *               password:
-//  *                 type: string
-//  *                 example: 12345
-//  *               fcmToken:
-//  *                 type: string
-//  *                 example: for ios,android and web
-//  *     responses:
-//  *       '200':
-//  *         description: OK
-//  *       '400':
-//  *         description: Bad Request
-//  *       '401':
-//  *         description: Authorization Failure
-//  *       '422':
-//  *         description: Validation Error
-//  *       '500':
-//  *         description: Internal Server Error
-//  */
+/**
+ * @swagger
+ * /v1/admin/auth/login:
+ *   post:
+ *     tags:
+ *       - Admin Auth
+ *     summary: 'Admin Login Api'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: admin@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: 12345
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
 
-// router.post("/login", LoginValidation, asyncHandler(AdminAuthController.emailLogin));
+router.post("/login", LoginValidation, asyncHandler(AdminAuthController.emailLogin));
 
 // /**
 //  * @swagger
