@@ -264,4 +264,45 @@ router.post("/login", LoginValidation, asyncHandler(AdminAuthController.emailLog
 // router.put("/updateProfile", adminAuth, imageUpload.single("profile_photo"), asyncHandler(AdminAuthController.updateProfile));
 
 
+/**
+ * @swagger
+ * /v1/admin/auth/addCustomeraddress:
+ *   post:
+ *     tags:
+ *       - Admin Auth
+ *     summary: 'Add Customer address'
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               CID:
+ *                 type: string
+ *                 example: "1267"
+ *               address:
+ *                 type: string
+ *                 example: Banglore
+ *               longitude:
+ *                 type: string
+ *                 example: 1234.56
+ *               latitude:
+ *                 type: string
+ *                 example: 1234.56
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad Request
+ *       '401':
+ *         description: Authorization Failure
+ *       '422':
+ *         description: Validation Error
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+router.post("/addCustomeraddress", asyncHandler(AdminAuthController.addCustomeraddress));
+
 module.exports = router;

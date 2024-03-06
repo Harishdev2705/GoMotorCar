@@ -1,4 +1,5 @@
 const service = require("../../services/mongodb.services");
+const Location = require('../../models/customerAddress.model')
 const { SuccessResponse } = require("../../utility/apiResponse");
 const { BadRequest } = require("../../utility/apiError");
 const commonHelper = require("../../helper/common");
@@ -346,6 +347,34 @@ const setNewPassword = async (req, res, next) => {
   }
 };
 
+ /**
+ * This Functions is used for add customer address
+ */
+
+ const addCustomeraddress = async (req, res, next) => {
+  try {
+      const { CID, address, longitude, latitude } = req.body;
+      // const requiredFields = [CID, address, longitude, latitude];
+      // for (const field of requiredFields) {
+      //     if (!(field in req.body)) {
+      //         return res.status(400).json({ error: `Missing required field: ${field}` });
+      //     }
+      // }
+      const addLocation = new Location({
+          CID,
+          address,
+          location: {
+              type: 'Point',
+              coordinates: [parseFloat(longitude), parseFloat(latitude)],
+          },
+      });
+      await service.createForAwait(addLocation);
+      return new SuccessResponse('Address Added Successully',{addLocation}).send(res);
+  } catch(error){
+      throw new BadRequest(error.message);
+  }
+};
+
 module.exports = {
   signup,
   emailLogin,
@@ -353,6 +382,7 @@ module.exports = {
   forgotPassword,
   forgetPasswordOtpVerify,
   resendOtp,
-  setNewPassword
+  setNewPassword,
+  addCustomeraddress
 
 };

@@ -33,30 +33,30 @@ const myProfile = async (req, res, next) => {
  * This Functions is used for update Admin profile image
  */
 
-  const profileImageUpload = async (req, res, next) => {
+const profileImageUpload = async (req, res, next) => {
     try {
-      const profileImage = req.file;
-      const user = await service.findOneForAwait(User, { _id: req.user._id }, {});
-      if (!user) {
-        throw new BadRequest(messages.error.noUserFound);
-      }
+        const profileImage = req.file;
+        const user = await service.findOneForAwait(User, { _id: req.user._id }, {});
+        if (!user) {
+            throw new BadRequest(messages.error.noUserFound);
+        }
 
-      // Delete the old profile image if it exists
-      if (user.profileImage) {
-        await deleteToS3(user.profileImage);
-      }
+        // Delete the old profile image if it exists
+        if (user.profileImage) {
+            await deleteToS3(user.profileImage);
+        }
 
-      // Construct the image URL
-      const imageUrl = await uploadToS3(profileImage.filename, profileImage.path);
+        // Construct the image URL
+        const imageUrl = await uploadToS3(profileImage.filename, profileImage.path);
 
-      // Update the user document with the new image URL
-      await service.findOneAndUpdateForAwait(User, { _id: req.user._id }, { profileImage: imageUrl });
+        // Update the user document with the new image URL
+        await service.findOneAndUpdateForAwait(User, { _id: req.user._id }, { profileImage: imageUrl });
 
-      return new SuccessResponse(messages.success.updateProfileImage).send(res);
+        return new SuccessResponse(messages.success.updateProfileImage).send(res);
     } catch (error) {
-      throw new BadRequest(error.message);
+        throw new BadRequest(error.message);
     }
-  };
+};
 
 
 /**
@@ -65,7 +65,7 @@ const myProfile = async (req, res, next) => {
 
 const updateProfile = async (req, res, next) => {
     try {
-        let { name  } = req.body
+        let { name } = req.body
         let user = await service.findOneForAwait(User, { _id: req.user._id }, {});
         if (!user) {
             throw new BadRequest(messages.error.noUserFound);
@@ -84,27 +84,27 @@ const updateProfile = async (req, res, next) => {
 const changePassword = async (req, res, next) => {
     try {
         let { oldPassword, newPassword, confirmPassword } = req.body
-        let user = await service.findOneForAwait(User, { _id: req.user._id  }, {});
+        let user = await service.findOneForAwait(User, { _id: req.user._id }, {});
         if (!user) {
             throw new BadRequest(messages.error.noUserFound);
         }
-        if(newPassword != confirmPassword){
+        if (newPassword != confirmPassword) {
             throw new BadRequest(messages.error.passwordMatch);
         }
         const isMatch = await commonHelper.comparePassword(oldPassword, user.password);
         if (!isMatch) {
-        throw new BadRequest(messages.error.invalidOldPassword);
+            throw new BadRequest(messages.error.invalidOldPassword);
         }
         await service.findOneAndUpdateForAwait(User, { _id: req.user._id }, { password: await commonHelper.encryptPassword(newPassword) });
         return new SuccessResponse(messages.success.changePassword).send(res);
     } catch (error) {
         throw new BadRequest(error.message)
     }
-};
+   
 
-module.exports = {
-    myProfile,
-    profileImageUpload,
-    updateProfile,
-    changePassword
-}
+    module.exports = {
+        myProfile,
+        profileImageUpload,
+        updateProfile,
+        changePassword
+    }
