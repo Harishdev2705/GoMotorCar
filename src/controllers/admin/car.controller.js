@@ -31,7 +31,7 @@ const Addcar = async (req, res, next) => {
     // var userphone = users.mobile;
     var base64Str = carImage;
                 var file_name = Date.now()
-                 const uploadDigr = 'uploads/images';
+                 const uploadDigr = 'uploads\\images\\ '+file_name+ '.png';
                  const uploadDir = '/var/www/html/uploads/';
 
                 var imageInfo = base64ToImage(base64Str, uploadDir, file_name + '.png');
