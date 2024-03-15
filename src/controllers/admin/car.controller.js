@@ -10,23 +10,33 @@ const sendEmail = require("../../helper/sendEmail");
 const jwt = require("jsonwebtoken");
 const { jwtSecret } = require("../../utility/config");
 const { uploadToS3, deleteToS3 } = require("../../middlewares/aws-config");
+var base64ToImage = require('base64-to-image');
+const { log } = require("winston");
 
 /**
  * @description - This function is used for add car
  */
 const Addcar = async (req, res, next) => {
   try {
-    let {name} = req.body;
+    let {name , carImage} = req.body;
+    
     if(name == undefined ){
       return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
     }
-    let carImage = req.file;   
-    if(carImage == undefined){
-      return new SuccessResponse("Please choose image").send(res);
-    }
+    // let carImage = req.file;   
+    // if(carImage == undefined){
+    //   return new SuccessResponse("Please choose image").send(res);
+    // }
     //  const car = await caradd.findOne({ name: name });
     // var userphone = users.mobile;
-    const imageUrl = await uploadToS3(carImage.filename, carImage.path);
+    var base64Str = carImage;
+                var file_name = Date.now()
+                 const uploadDigr = 'uploads/images';
+                 const uploadDir = '/var/www/html/uploads/';
+
+                var imageInfo = base64ToImage(base64Str, uploadDir, file_name + '.png');
+                console.log('imageInfo',imageInfo);
+    const imageUrl = await uploadToS3(imageInfo.fileName, uploadDigr);
     console.log('imageUrl',imageUrl);
     let newUser = await new caradd({
       name,
@@ -61,7 +71,8 @@ const AddcarModel = async (req, res, next) => {
     if(carID== undefined, name == undefined ){
       return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
     }
-    let carImage = req.file;   
+    let carImage = req.file;  
+    console.log('carImage',carImage); 
     if(carImage == undefined){
       return new SuccessResponse("Please choose image").send(res);
     }

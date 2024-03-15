@@ -22,7 +22,7 @@ const { imageUpload } = require("../../../middlewares/multerUploads");
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *          application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -30,8 +30,8 @@ const { imageUpload } = require("../../../middlewares/multerUploads");
  *                 type: string
  *                 example: "BMW"
  *               carImage:
- *                 type: file
- *                 format: binary              
+ *                 type: string
+ *                 format: "bmw"              
  *     responses:
  *       '200':
  *         description: OK
@@ -45,7 +45,7 @@ const { imageUpload } = require("../../../middlewares/multerUploads");
  *         description: Internal Server Error
  */
 
-router.post("/Addcar", imageUpload.single("carImage"), asyncHandler(AdminCarController.Addcar));
+router.post("/Addcar", asyncHandler(AdminCarController.Addcar))
 
 /**
  * @swagger
