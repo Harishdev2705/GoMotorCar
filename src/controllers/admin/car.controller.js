@@ -36,7 +36,7 @@ const Addcar = async (req, res, next) => {
 
                 var imageInfo = base64ToImage(base64Str, uploadDir, file_name + '.png');
                 console.log('imageInfo',imageInfo);
-    const imageUrl = await uploadToS3(imageInfo.fileName, uploadDigr);
+    const imageUrl = await uploadToS3(imageInfo.fileName, uploadDir);
     console.log('imageUrl',imageUrl);
     let newUser = await new caradd({
       name,
