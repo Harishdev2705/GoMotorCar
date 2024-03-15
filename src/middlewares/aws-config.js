@@ -16,14 +16,31 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 // Function to upload an object to an S3 bucket
-exports.uploadToS3 = (objectKey, filePath) => {
+exports.uploadToS3 = (objectKey, base64String) => {
   console.log('objectKey',objectKey);
+  // const params = {
+  //   Bucket: 'harish-mybucket', // Replace with your bucket name
+  //   Key: objectKey,
+  //   Body: require('fs').createReadStream(filePath)
+  // };
+  const buffer = Buffer.from(base64String, 'base64');
+  objectKey = String(objectKey);
+console.log('buffer',buffer);
   const params = {
     Bucket: 'harish-mybucket', // Replace with your bucket name
     Key: objectKey,
-    Body: require('fs').createReadStream(filePath)
-  };
+    Body: buffer,
+    ContentType: 'image/jpeg', // Adjust the content type according to your image type
+    ContentType: 'text/plain', // If your image is already encoded, otherwise omit this line
 
+  };
+  // const params = {
+  //   Bucket: bucketName,
+  //   Key: objectKey,
+  //   Body: buffer,
+  //   ContentType: 'image/jpeg', // Change according to your image type
+  //   ContentEncoding: 'base64' // If your image is already encoded, otherwise omit this line
+  // };
   return new Promise((resolve, reject) => {
     s3.upload(params, (err, data) => {
       if (err) {

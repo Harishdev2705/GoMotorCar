@@ -19,7 +19,7 @@ const { log } = require("winston");
 const Addcar = async (req, res, next) => {
   try {
     let {name , carImage} = req.body;
-    
+    console.log('carImage',carImage);
     if(name == undefined ){
       return res.status(422).json({ status:"Validation error", "message": "All fields is required","statusCode": 422 });
     }
@@ -31,12 +31,13 @@ const Addcar = async (req, res, next) => {
     // var userphone = users.mobile;
     var base64Str = carImage;
                 var file_name = Date.now()
-                 const uploadDigr = 'uploads\\images\\ '+file_name+ '.png';
+                //  const uploadDigr = 'uploads\\images\\ '+file_name+ '.png';
                  const uploadDir = '/var/www/html/uploads/';
 
-                var imageInfo = base64ToImage(base64Str, uploadDir, file_name + '.png');
-                console.log('imageInfo',imageInfo);
-    const imageUrl = await uploadToS3(imageInfo.fileName, uploadDir);
+                // var imageInfo = base64ToImage(base64Str, uploadDir, file_name + '.png');
+                // console.log('imageInfo',imageInfo);
+                // const imageBuffer = await fs.promises.readFile(filePath);
+    const imageUrl = await uploadToS3(file_name, carImage);
     console.log('imageUrl',imageUrl);
     let newUser = await new caradd({
       name,
