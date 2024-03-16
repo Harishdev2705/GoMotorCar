@@ -68,7 +68,7 @@ const cars = async (req, res, next) => {
  */
 const AddcarModel = async (req, res, next) => {
   try {
-    let { carID, name ,carImage} = req.body;
+    let { carID, name ,carImage,categoryID} = req.body;
     if (carID == undefined, name == undefined) {
       return res.status(422).json({ status: "Validation error", "message": "All fields is required", "statusCode": 422 });
     }
@@ -94,7 +94,8 @@ const AddcarModel = async (req, res, next) => {
     let newUser = await new carModel({
       carID,
       name,
-      carImage: imageUrl
+      carImage: imageUrl,
+      categoryID
     });
     await service.createForAwait(newUser);
 
