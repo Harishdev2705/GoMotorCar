@@ -78,7 +78,7 @@ router.get("/cars", asyncHandler(AdminCarController.cars));
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -89,8 +89,8 @@ router.get("/cars", asyncHandler(AdminCarController.cars));
  *                 type: string
  *                 example: "BMW"
  *               carImage:
- *                 type: file
- *                 format: binary              
+ *                 type: string
+ *                 format: 'bmw'              
  *     responses:
  *       '200':
  *         description: OK
@@ -104,7 +104,7 @@ router.get("/cars", asyncHandler(AdminCarController.cars));
  *         description: Internal Server Error
  */
 
-router.post("/AddcarModel", imageUpload.single("carImage"), asyncHandler(AdminCarController.AddcarModel));
+router.post("/AddcarModel", asyncHandler(AdminCarController.AddcarModel));
 /**
  * @swagger
  * /v1/admin/car/carsModel:
@@ -197,7 +197,7 @@ router.get("/CarCategories",asyncHandler(AdminCarController.CarCategories));
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -205,8 +205,8 @@ router.get("/CarCategories",asyncHandler(AdminCarController.CarCategories));
  *                 type: string
  *                 example: "BMW"
  *               Image:
- *                 type: file
- *                 format: binary              
+ *                 type: string
+ *                 format: 'bmw'              
  *     responses:
  *       '200':
  *         description: OK
@@ -220,7 +220,7 @@ router.get("/CarCategories",asyncHandler(AdminCarController.CarCategories));
  *         description: Internal Server Error
  */
 
-router.post("/AddFuelType", imageUpload.single("Image"), asyncHandler(AdminCarController.AddFuelType));
+router.post("/AddFuelType", asyncHandler(AdminCarController.AddFuelType));
 /**
  * @swagger
  * /v1/admin/car/Fueltype:
